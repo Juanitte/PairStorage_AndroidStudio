@@ -6,112 +6,241 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txtInputLayout_phone"
-        android:layout_width="206dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="29dp"
-        android:textColorHint="#D1D1D1"
-        app:boxBackgroundColor="#2E2E2E"
-        app:layout_constraintStart_toEndOf="@+id/txt_phone"
-        app:layout_constraintTop_toBottomOf="@+id/txtInputLayout_name">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtInput_phone"
-            android:layout_width="207dp"
-            android:layout_height="44dp"
-            android:height="48dp"
-            android:hint="teléfono"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:id="@+id/txt_phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="50dp"
-        android:text="Teléfono: "
-        android:textColor="#1C1C1C"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_name" />
-
-    <TextView
-        android:id="@+id/txt_title"
-        android:layout_width="390dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
-        android:text="PairStorage"
-        android:textAlignment="center"
-        android:textColor="#1B1B1B"
-        android:textSize="34sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ToggleButton
-        android:id="@+id/btn_toggle"
-        android:layout_width="733dp"
-        android:layout_height="62dp"
-        android:background="#131313"
-        android:text="ToggleButton"
-        android:textColor="#FFFFFF"
-        android:textOff="Consultar"
-        android:textOn="Introducir"
-        android:textSize="20sp"
+    <ScrollView
+        android:id="@+id/scroll_general"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/txt_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="75dp"
-        android:text="Nombre: "
-        android:textColor="#1C1C1C"
-        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_title" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txtInputLayout_name"
-        android:layout_width="206dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="67dp"
-        android:textColorHint="#D1D1D1"
-        app:boxBackgroundColor="#2E2E2E"
-        app:layout_constraintStart_toEndOf="@+id/txt_name"
-        app:layout_constraintTop_toBottomOf="@+id/txt_title">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtInput_name"
-            android:layout_width="207dp"
-            android:layout_height="44dp"
-            android:height="48dp"
-            android:hint="nombre"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/txt_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="PairStorage"
+                android:textAlignment="center"
+                android:textColor="#303030"
+                android:textSize="34sp"
+                android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/btn_submit"
-        android:layout_width="174dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="118dp"
-        android:layout_marginTop="17dp"
-        android:layout_marginEnd="118dp"
-        android:backgroundTint="#474747"
-        android:text="Introducir"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtInputLayout_phone" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:id="@+id/txt_brand"
+                    android:layout_width="58dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Brand:"
+                    android:textColor="#393939"
+                    android:textSize="20sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="brand"
+                        android:textSize="20sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_model"
+                    android:layout_width="58dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Model:"
+                    android:textColor="#393939"
+                    android:textSize="20sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="model"
+                        android:textSize="20sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#2C2C2C"
+                    android:text=" Save "
+                    android:onClick="guardarDatoValor" />
+
+                <Button
+                    android:id="@+id/btn_show"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#2C2C2C"
+                    android:text=" Show "
+                    android:onClick="buscarDato"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#2C2C2C"
+                    android:text=" Edit "
+                    android:onClick="modificarValorDato" />
+
+                <Button
+                    android:id="@+id/btn_remove"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#2C2C2C"
+                    android:text="Remove"
+                    android:onClick="borrarDato" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_showAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginEnd="70dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#2C2C2C"
+                    android:text="Show All"
+                    android:onClick="mostrarListado"/>
+            </LinearLayout>
+
+            <ScrollView
+                android:id="@+id/scroll_result"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/txt_brandHeader"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="#E8E8E8"
+                            android:backgroundTint="#DADADA"
+                            android:text="Brand"
+                            android:textAlignment="center"
+                            android:textColor="#373737"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txt_modelHeader"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="#FFFFFF"
+                            android:backgroundTint="#DADADA"
+                            android:text="Model"
+                            android:textAlignment="center"
+                            android:textColor="#373737"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/txt_brandList"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Brand"
+                            android:textAlignment="center"
+                            android:textColor="#373737"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txt_modelList"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Model"
+                            android:textAlignment="center"
+                            android:textColor="#373737"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

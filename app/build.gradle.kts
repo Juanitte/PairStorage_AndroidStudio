@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.juanite.parejas_juanhermo"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.juanite.parejas_juanhermo"
