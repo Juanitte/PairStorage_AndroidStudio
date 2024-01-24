@@ -9,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textview.MaterialTextView
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,14 +50,22 @@ class MainActivity : AppCompatActivity() {
         val brand = obtenerTextoDesdeEditText(txt_brand)
         val model = obtenerTextoDesdeEditText(txt_model)
 
-        val dato = "$brand-$model"
+        if (brand.isNotEmpty() && model.isNotEmpty()) {
+            val dato = JSONObject()
+            dato.put("brand", brand)
+            dato.put("model", model)
 
-        if (datoExistente(dato)) {
-            mostrarAviso("La pareja de clave-valor ya existe. Actualiza o modifica el nombre del dato.")
+            val datoString = dato.toString()
+
+            if (datoExistente(datoString)) {
+                mostrarAviso("La pareja de clave-valor ya existe. Actualiza o modifica el nombre del dato.")
+            } else {
+                editor.putString(brand, datoString)  // Usar "brand" como clave en lugar de datoString
+                editor.apply()
+                mostrarAviso("Pareja de clave-valor guardada exitosamente.")
+            }
         } else {
-            editor.putString(dato, model)
-            editor.apply()
-            mostrarAviso("Pareja de clave-valor guardada exitosamente.")
+            mostrarAviso("Ingresa valores válidos para Brand y Model.")
         }
     }
 
@@ -64,27 +73,37 @@ class MainActivity : AppCompatActivity() {
         val brand = obtenerTextoDesdeEditText(txt_brand)
         val model = obtenerTextoDesdeEditText(txt_model)
 
-        val datoBuscado = "$brand-$model"
-        val valorEncontrado = sharedPreferences.getString(datoBuscado, null)
+        val valorEncontrado = sharedPreferences.getString(brand, null)  // Usar "brand" como clave
 
         if (valorEncontrado != null) {
-            val partes = valorEncontrado.split("-")
-            txt_brandList.text = partes[0]
-            txt_modelList.text = partes[1]
+            val datoEncontrado = JSONObject(valorEncontrado)
+
+            txt_brandList.text = datoEncontrado.getString("brand")
+            txt_modelList.text = datoEncontrado.getString("model")
+
+            // Setear el modelo encontrado en el TextInputEditText
+            txt_model.setText(datoEncontrado.getString("model"))
             mostrarAviso("Valor encontrado: $valorEncontrado")
         } else {
+            // Limpiar el TextInputEditText si el valor no se encuentra
+            txt_model.text = null
             mostrarAviso("El dato no existe.")
         }
     }
+
 
     fun borrarDato(view: View) {
         val brand = obtenerTextoDesdeEditText(txt_brand)
         val model = obtenerTextoDesdeEditText(txt_model)
 
-        val datoABorrar = "$brand-$model"
+        val datoABorrar = JSONObject()
+        datoABorrar.put("brand", brand)
+        datoABorrar.put("model", model)
 
-        if (datoExistente(datoABorrar)) {
-            editor.remove(datoABorrar)
+        val datoABorrarString = datoABorrar.toString()
+
+        if (datoExistente(datoABorrarString)) {
+            editor.remove(datoABorrarString)
             editor.apply()
             mostrarAviso("Dato borrado exitosamente.")
         } else {
@@ -96,12 +115,21 @@ class MainActivity : AppCompatActivity() {
         val brand = obtenerTextoDesdeEditText(txt_brand)
         val model = obtenerTextoDesdeEditText(txt_model)
 
-        val datoAModificar = "$brand-$model"
-        val nuevoBrand = obtenerTextoDesdeEditText(txt_brand)
-        val nuevoValor = "$nuevoBrand-$model"
+        val datoAModificar = JSONObject()
+        datoAModificar.put("brand", brand)
+        datoAModificar.put("model", model)
 
-        if (datoExistente(datoAModificar)) {
-            editor.putString(datoAModificar, nuevoValor)
+        val nuevoBrand = obtenerTextoDesdeEditText(txt_brand)
+        val nuevoValor = JSONObject()
+        nuevoValor.put("brand", nuevoBrand)
+        nuevoValor.put("model", model)
+
+        val datoAModificarString = datoAModificar.toString()
+        val nuevoValorString = nuevoValor.toString()
+
+        if (datoExistente(datoAModificarString)) {
+            editor.remove(datoAModificarString)
+            editor.putString(nuevoValorString, nuevoValorString)
             editor.apply()
             mostrarAviso("Valor del dato actualizado.")
         } else {
@@ -116,9 +144,9 @@ class MainActivity : AppCompatActivity() {
         val listaModel = StringBuilder()
 
         for ((key, value) in allEntries) {
-            val partes = key.split("-")
-            listaBrand.append("${partes[0]}\n")
-            listaModel.append("${partes[1]}\n")
+            val dato = JSONObject(value.toString())
+            listaBrand.append("${dato.getString("brand")}\n")
+            listaModel.append("${dato.getString("model")}\n")
         }
 
         txt_brandList.text = listaBrand.toString().trimEnd()
@@ -126,4 +154,7 @@ class MainActivity : AppCompatActivity() {
 
         mostrarAviso("Listado de parejas Dato-Valor mostrado.")
     }
+
+
+
 }
