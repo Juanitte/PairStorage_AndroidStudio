@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="PairStorage"
+                android:text="pairstorage"
                 android:textAlignment="center"
                 android:textColor="#303030"
                 android:textSize="34sp"
@@ -46,7 +46,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Brand:"
+                    android:text="@string/brand"
                     android:textColor="#393939"
                     android:textSize="20sp" />
 
@@ -59,7 +59,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="brand"
+                        android:hint="@string/brand1"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -78,7 +78,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Model:"
+                    android:text="@string/model"
                     android:textColor="#393939"
                     android:textSize="20sp" />
 
@@ -91,7 +91,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="model"
+                        android:hint="@string/model1"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -111,7 +111,7 @@
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:backgroundTint="#2C2C2C"
-                    android:text=" Save "
+                    android:text="@string/save"
                     android:onClick="guardarDatoValor" />
 
                 <Button
@@ -122,7 +122,7 @@
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
                     android:backgroundTint="#2C2C2C"
-                    android:text=" Show "
+                    android:text="@string/show"
                     android:onClick="buscarDato"/>
             </LinearLayout>
 
@@ -140,7 +140,7 @@
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:backgroundTint="#2C2C2C"
-                    android:text=" Edit "
+                    android:text="@string/edit"
                     android:onClick="modificarValorDato" />
 
                 <Button
@@ -151,7 +151,7 @@
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
                     android:backgroundTint="#2C2C2C"
-                    android:text="Remove"
+                    android:text="@string/remove"
                     android:onClick="borrarDato" />
 
             </LinearLayout>
@@ -170,7 +170,7 @@
                     android:layout_marginEnd="70dp"
                     android:layout_weight="1"
                     android:backgroundTint="#2C2C2C"
-                    android:text="Show All"
+                    android:text="@string/show_all"
                     android:onClick="mostrarListado"/>
             </LinearLayout>
 
@@ -197,7 +197,7 @@
                             android:layout_weight="1"
                             android:background="#E8E8E8"
                             android:backgroundTint="#DADADA"
-                            android:text="Brand"
+                            android:text="@string/brand2"
                             android:textAlignment="center"
                             android:textColor="#373737"
                             android:textSize="16sp" />
@@ -209,7 +209,7 @@
                             android:layout_weight="1"
                             android:background="#FFFFFF"
                             android:backgroundTint="#DADADA"
-                            android:text="Model"
+                            android:text="@string/model2"
                             android:textAlignment="center"
                             android:textColor="#373737"
                             android:textSize="16sp" />

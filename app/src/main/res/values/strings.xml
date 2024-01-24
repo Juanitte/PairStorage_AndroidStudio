@@ -1,3 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Parejas_JuanHermo</string>
+    <string name="app_name">PairStorage</string>
+    <string name="brand">Brand:</string>
+    <string name="brand1">brand</string>
+    <string name="model">Model:</string>
+    <string name="model1">model</string>
+    <string name="save">Save</string>
+    <string name="show">Show</string>
+    <string name="edit">Edit</string>
+    <string name="remove">Remove</string>
+    <string name="show_all">Show All</string>
+    <string name="brand2">Brand</string>
+    <string name="model2">Model</string>
 </resources>

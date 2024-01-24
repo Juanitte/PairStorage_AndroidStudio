@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PairStorage</string>
+    <string name="brand">Marca:</string>
+    <string name="brand1">marca</string>
+    <string name="model">Modelo:</string>
+    <string name="model1">modelo</string>
+    <string name="save">Guardar</string>
+    <string name="show">Buscar</string>
+    <string name="edit">Editar</string>
+    <string name="remove">Eliminar</string>
+    <string name="show_all">Listar</string>
+    <string name="brand2">Marca</string>
+    <string name="model2">Modelo</string>
+</resources>
