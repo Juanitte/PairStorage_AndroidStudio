@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.textview.MaterialTextView
 import org.json.JSONObject
 
@@ -16,8 +17,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
 
-    private lateinit var txt_brand: MaterialTextView
-    private lateinit var txt_model: MaterialTextView
+    private lateinit var txtInput_brand: TextInputLayout
+    private lateinit var txtInput_model: TextInputLayout
     private lateinit var txt_brandList: TextView
     private lateinit var txt_modelList: TextView
 
@@ -27,40 +28,43 @@ class MainActivity : AppCompatActivity() {
 
         sharedPreferences = getPreferences(Context.MODE_PRIVATE)
         editor = sharedPreferences.edit()
-
-        txt_brand = findViewById(R.id.txt_brand)
-        txt_model = findViewById(R.id.txt_model)
+        txtInput_brand = findViewById(R.id.txtInput_brand)
+        txtInput_model = findViewById(R.id.txtInput_model)
         txt_brandList = findViewById(R.id.txt_brandList)
         txt_modelList = findViewById(R.id.txt_modelList)
     }
 
-    private fun obtenerTextoDesdeEditText(editText: MaterialTextView): String {
-        return editText.text.toString()
+    private fun obtenerTextoDesdeEditText(editText: EditText?): String {
+        if (editText != null) {
+            return editText.text.toString()
+        }
+        return ""
     }
 
     private fun mostrarAviso(mensaje: String) {
         Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
     }
 
-    private fun datoExistente(dato: String): Boolean {
-        return sharedPreferences.contains(dato)
+    private fun datoExistente(clave: String): Boolean {
+        return sharedPreferences.contains(clave)
     }
 
     fun guardarDatoValor(view: View) {
-        val brand = obtenerTextoDesdeEditText(txt_brand)
-        val model = obtenerTextoDesdeEditText(txt_model)
+        val brand = obtenerTextoDesdeEditText(txtInput_brand.editText)
+        val model = obtenerTextoDesdeEditText(txtInput_model.editText)
 
         if (brand.isNotEmpty() && model.isNotEmpty()) {
+            val claveUnica = brand + model
             val dato = JSONObject()
             dato.put("brand", brand)
             dato.put("model", model)
 
             val datoString = dato.toString()
 
-            if (datoExistente(datoString)) {
+            if (datoExistente(claveUnica)) {
                 mostrarAviso("La pareja de clave-valor ya existe. Actualiza o modifica el nombre del dato.")
             } else {
-                editor.putString(brand, datoString)  // Usar "brand" como clave en lugar de datoString
+                editor.putString(claveUnica, datoString)
                 editor.apply()
                 mostrarAviso("Pareja de clave-valor guardada exitosamente.")
             }
@@ -70,10 +74,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun buscarDato(view: View) {
-        val brand = obtenerTextoDesdeEditText(txt_brand)
-        val model = obtenerTextoDesdeEditText(txt_model)
+        val brand = obtenerTextoDesdeEditText(txtInput_brand.editText)
+        val model = obtenerTextoDesdeEditText(txtInput_model.editText)
 
-        val valorEncontrado = sharedPreferences.getString(brand, null)  // Usar "brand" como clave
+        val claveUnica = brand + model
+        val valorEncontrado = sharedPreferences.getString(claveUnica, null)
 
         if (valorEncontrado != null) {
             val datoEncontrado = JSONObject(valorEncontrado)
@@ -81,29 +86,22 @@ class MainActivity : AppCompatActivity() {
             txt_brandList.text = datoEncontrado.getString("brand")
             txt_modelList.text = datoEncontrado.getString("model")
 
-            // Setear el modelo encontrado en el TextInputEditText
-            txt_model.setText(datoEncontrado.getString("model"))
+            txtInput_model.editText?.setText(datoEncontrado.getString("model"))
             mostrarAviso("Valor encontrado: $valorEncontrado")
         } else {
-            // Limpiar el TextInputEditText si el valor no se encuentra
-            txt_model.text = null
+            txtInput_model.editText?.text = null
             mostrarAviso("El dato no existe.")
         }
     }
 
-
     fun borrarDato(view: View) {
-        val brand = obtenerTextoDesdeEditText(txt_brand)
-        val model = obtenerTextoDesdeEditText(txt_model)
+        val brand = obtenerTextoDesdeEditText(txtInput_brand.editText)
+        val model = obtenerTextoDesdeEditText(txtInput_model.editText)
 
-        val datoABorrar = JSONObject()
-        datoABorrar.put("brand", brand)
-        datoABorrar.put("model", model)
+        val claveUnica = brand + model
 
-        val datoABorrarString = datoABorrar.toString()
-
-        if (datoExistente(datoABorrarString)) {
-            editor.remove(datoABorrarString)
+        if (datoExistente(claveUnica)) {
+            editor.remove(claveUnica)
             editor.apply()
             mostrarAviso("Dato borrado exitosamente.")
         } else {
@@ -112,28 +110,33 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun modificarValorDato(view: View) {
-        val brand = obtenerTextoDesdeEditText(txt_brand)
-        val model = obtenerTextoDesdeEditText(txt_model)
+        val modelToSearch = obtenerTextoDesdeEditText(txtInput_model.editText)
+        val nuevoBrand = obtenerTextoDesdeEditText(txtInput_brand.editText)
 
-        val datoAModificar = JSONObject()
-        datoAModificar.put("brand", brand)
-        datoAModificar.put("model", model)
+        val allEntries = sharedPreferences.all
 
-        val nuevoBrand = obtenerTextoDesdeEditText(txt_brand)
-        val nuevoValor = JSONObject()
-        nuevoValor.put("brand", nuevoBrand)
-        nuevoValor.put("model", model)
+        var datoModificado = false
 
-        val datoAModificarString = datoAModificar.toString()
-        val nuevoValorString = nuevoValor.toString()
+        for ((key, value) in allEntries) {
+            val dato = JSONObject(value.toString())
 
-        if (datoExistente(datoAModificarString)) {
-            editor.remove(datoAModificarString)
-            editor.putString(nuevoValorString, nuevoValorString)
-            editor.apply()
+            if (dato.getString("model") == modelToSearch) {
+                dato.put("brand", nuevoBrand)
+
+                val nuevoValorString = dato.toString()
+
+                editor.putString(key, nuevoValorString)
+                editor.apply()
+
+                datoModificado = true
+                break
+            }
+        }
+
+        if (datoModificado) {
             mostrarAviso("Valor del dato actualizado.")
         } else {
-            mostrarAviso("El dato no existe.")
+            mostrarAviso("No se encontró ningún dato con el modelo proporcionado.")
         }
     }
 
@@ -154,7 +157,4 @@ class MainActivity : AppCompatActivity() {
 
         mostrarAviso("Listado de parejas Dato-Valor mostrado.")
     }
-
-
-
 }
